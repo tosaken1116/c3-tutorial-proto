@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package schema.ranking;
+
+import "schema/ranking/rpc/ranking.proto";
+import "schema/third_party/google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "./";
+
+service RankingService {
+  rpc GetRanking(google.protobuf.Empty)
+      returns (schema.ranking.rpc.GetRankingResponse) {
+    option (google.api.http) = {
+      post : "/v1/ranking"
+      body : "*"
+    };
+  };
+}

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package schema.section.rpc;
+
+import "schema/section/resources/section.proto";
+
+option go_package = "./";
+
+message GetSectionDetailRequest { string id = 1; }
+
+message GetSectionDetailResponse {
+  schema.section.resources.Section section = 1;
+}
+
+message GetTutorialSectionsRequest { string id = 1; }
+
+message GetTutorialSectionsResponse {
+  repeated schema.section.resources.Section sections = 1;
+}
+
+message UpdateSectionRequest {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message DeleteSectionRequest { string id = 1; }

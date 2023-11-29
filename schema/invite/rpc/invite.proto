@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package schema.invite.rpc;
+
+option go_package = "./";
+
+message CreateInviteRequest {
+  string tutorial_id = 1;
+  string user_id = 2;
+}
+
+message DeleteInviteRequest {
+  string tutorial_id = 1;
+  string user_id = 2;
+}
+
+message OwnerTransferRequest {
+  string tutorial_id = 1;
+  string user_id = 2;
+}

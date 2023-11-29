@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package schema.tutorial;
+option go_package = "./";
+
+import "schema/tutorial/rpc/tutorial.proto";
+import "schema/section/rpc/section.proto";
+import "google/protobuf/empty.proto";
+import "schema/third_party/google/api/annotations.proto";
+
+service TutorialService {
+  rpc GetTutorialDetail(schema.tutorial.rpc.GetTutorialDetailRequest)
+      returns (schema.tutorial.rpc.GetTutorialDetailResponse) {
+    option (google.api.http) = {
+      get : "/v1/tutorials/{id}"
+    };
+  };
+  rpc GetTutorialList(schema.tutorial.rpc.GetTutorialListRequest)
+      returns (schema.tutorial.rpc.GetTutorialListResponse) {
+    option (google.api.http) = {
+      get : "/v1/tutorial"
+    };
+  };
+
+  rpc GetTutorialSections(schema.section.rpc.GetTutorialSectionsRequest)
+      returns (schema.section.rpc.GetTutorialSectionsResponse) {
+    option (google.api.http) = {
+      get : "/v1/tutorials/{id}/sections"
+    };
+  };
+
+  rpc UpdateTutorial(schema.tutorial.rpc.UpdateTutorialRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/v1/tutorials/{id}"
+      body : "*"
+    };
+  };
+
+  rpc UpdateUserProgress(schema.tutorial.rpc.UpdateUserProgressRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/v1/tutorials/{id}/progress"
+      body : "*"
+    };
+  };
+
+  rpc CreateTutorial(schema.tutorial.rpc.CreateTutorialRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/v1/tutorial"
+      body : "*"
+    };
+  };
+}

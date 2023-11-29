@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package schema.ranking.rpc;
+import "schema/ranking/resources/ranking.proto";
+option go_package = "./";
+
+message GetRankingResponse {
+  repeated schema.ranking.resources.User users = 1;
+}

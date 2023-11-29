@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package schema.user.resources;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "./";
+
+message User {
+  string id = 1;
+  string username = 2;
+  string description = 3;
+  string icon_url = 4;
+  google.protobuf.Timestamp created_at = 5;
+  int32 completed_tutorials = 6;
+  int32 created_tutorials = 7;
+};
+
+message Author {
+  string id = 1;
+  string username = 2;
+  string icon_url = 3;
+}

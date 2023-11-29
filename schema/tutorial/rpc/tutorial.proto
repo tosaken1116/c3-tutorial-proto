@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package schema.tutorial.rpc;
+
+import "schema/user/resources/user.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "./";
+
+enum TutorialType {
+  CREATE = 0;
+  COMPLETE = 1;
+  LIKE = 2;
+}
+enum TutorialStatus {
+  DRAFT = 0;
+  PUBLISHED = 1;
+}
+message GetTutorialDetailRequest { string id = 1; }
+
+message GetTutorialDetailResponse {
+  string id = 1;
+  string title = 2;
+  string thumbnail_url = 3;
+  optional google.protobuf.Timestamp created_at = 4;
+  optional google.protobuf.Timestamp updated_at = 5;
+  optional google.protobuf.Timestamp completed_at = 6;
+  string description = 7;
+  uint32 score = 8;
+  schema.user.resources.Author owner = 9;
+  int32 progress = 10;
+  int32 section_total = 11;
+  bool is_liked = 12;
+  repeated schema.user.resources.Author authors = 13;
+}
+
+message GetTutorialListRequest {
+  string user_id = 1;
+  optional TutorialType type = 2;
+  optional int32 limit = 3;
+  optional int32 page = 4;
+  optional string order_by = 5;
+  optional bool is_asc = 6;
+  optional TutorialStatus status = 7;
+}
+
+message GetTutorialListResponse {
+  repeated GetTutorialDetailResponse tutorials = 1;
+}
+
+message UpdateTutorialRequest {
+  string id = 1;
+  string title = 2;
+  string thumbnail_url = 3;
+  string description = 4;
+  uint32 score = 5;
+}
+
+message UpdateUserProgressRequest {
+  string id = 1;
+  int32 progress = 2;
+}
+
+message CreateTutorialRequest {
+  string title = 1;
+  string thumbnail_url = 2;
+  string description = 3;
+  uint32 score = 4;
+}

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package schema.like.rpc;
+
+option go_package = "./";
+
+message CreateLikeRequest { string tutorial_id = 1; }
+
+message DeleteLikeRequest { string tutorial_id = 1; }

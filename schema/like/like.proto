@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package schema.like;
+
+import "schema/like/rpc/like.proto";
+import "schema/third_party/google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "./";
+
+service LikeService {
+  rpc CreateLike(schema.like.rpc.CreateLikeRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/v1/like/{tutorial_id}"
+    };
+  };
+  rpc DeleteLike(schema.like.rpc.DeleteLikeRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete : "/v1/like/{tutorial_id}"
+    };
+  };
+}

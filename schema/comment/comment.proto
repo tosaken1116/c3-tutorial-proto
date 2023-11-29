@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package schema.comment;
+
+import "schema/comment/rpc/comment.proto";
+import "schema/third_party/google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "./";
+
+service CommentService {
+  rpc CreateComment(schema.comment.rpc.CreateCommentRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/v1/comment/{section_id}"
+    };
+  };
+  rpc DeleteComment(schema.comment.rpc.DeleteCommentRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete : "/v1/comment/{id}"
+    };
+  };
+  rpc GetComments(schema.comment.rpc.GetCommentRequest)
+      returns (schema.comment.rpc.GetCommentResponse) {
+    option (google.api.http) = {
+      get : "/v1/comment/{section_id}"
+    };
+  };
+}

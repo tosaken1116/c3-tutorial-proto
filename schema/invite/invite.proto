@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package schema.invite;
+
+import "schema/invite/rpc/invite.proto";
+import "schema/third_party/google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "./";
+
+service InviteService {
+  rpc CreateInvite(schema.invite.rpc.CreateInviteRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/v1/invite"
+      body : "*"
+    };
+  };
+
+  rpc DeleteInvite(schema.invite.rpc.DeleteInviteRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete : "/v1/invite/{tutorial_id}"
+      body : "*"
+    };
+  };
+
+  rpc OwnerTransfer(schema.invite.rpc.OwnerTransferRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/v1/invite/owner_transfer"
+      body : "*"
+    };
+  };
+}

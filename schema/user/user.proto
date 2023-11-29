@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package schema.user;
+option go_package = "./";
+
+import "google/protobuf/empty.proto";
+
+import "schema/user/rpc/user.proto";
+import "schema/third_party/google/api/annotations.proto";
+
+service AccountService {
+  rpc GetAccountDetail(schema.user.rpc.GetUserDetailRequest)
+      returns (schema.user.rpc.GetUserDetailResponse) {
+    option (google.api.http) = {
+      get : "/v1/user/{id}"
+    };
+  };
+
+  rpc UpdateAccount(schema.user.rpc.UpdateUserRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/v1/user"
+      body : "*"
+    };
+  };
+}

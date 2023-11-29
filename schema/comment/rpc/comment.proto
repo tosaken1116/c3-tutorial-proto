@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package schema.comment.rpc;
+import "schema/comment/resources/comment.proto";
+option go_package = "./";
+
+message CreateCommentRequest {
+  string section_id = 1;
+  string content = 2;
+}
+
+message UpdateCommentRequest {
+  string id = 1;
+  string content = 2;
+}
+
+message DeleteCommentRequest { string id = 1; }
+
+message GetCommentRequest { string section_id = 1; }
+
+message GetCommentResponse {
+  repeated schema.comment.resources.Comment comments = 1;
+}

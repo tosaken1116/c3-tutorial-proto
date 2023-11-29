@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package schema.comment.resources;
+
+option go_package = "./";
+
+message Comment {
+  string user_id = 1;
+  string description = 2;
+  string created_at = 3;
+  string updated_at = 4;
+}

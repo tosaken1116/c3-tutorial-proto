@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package schema.tutorial.resources;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "./";
+
+message Tutorial {
+  string id = 1;
+  string title = 2;
+  string thumbnail_url = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+  string description = 6;
+  uint32 score = 7;
+};

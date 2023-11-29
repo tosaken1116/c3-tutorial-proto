@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package schema.section;
+
+import "schema/section/rpc/section.proto";
+import "schema/third_party/google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+option go_package = "./";
+
+service SectionService {
+  rpc GetSectionDetail(schema.section.rpc.GetSectionDetailRequest)
+      returns (schema.section.rpc.GetSectionDetailResponse) {
+    option (google.api.http) = {
+      get : "/v1/section/{id}"
+    };
+  };
+  rpc UpdateSectionRequest(schema.section.rpc.UpdateSectionRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/v1/section/{id}"
+      body : "*"
+    };
+  };
+  rpc DeleteSectionRequest(schema.section.rpc.DeleteSectionRequest)
+      returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete : "/v1/section/{id}"
+    };
+  };
+}

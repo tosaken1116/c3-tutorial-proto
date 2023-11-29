@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package schema.ranking.resources;
+
+option go_package = "./";
+
+message User {
+  string id = 1;
+  string icon_url = 2;
+  string username = 3;
+  string score = 4;
+}

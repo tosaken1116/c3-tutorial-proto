@@ -1,0 +1,598 @@
+swagger: "2.0"
+info:
+  title: schema/like/resources/like.proto
+  version: version not set
+tags:
+  - name: LikeService
+  - name: RankingService
+  - name: TutorialService
+  - name: SectionService
+  - name: CommentService
+  - name: AccountService
+  - name: InviteService
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /v1/comment/{id}:
+    delete:
+      operationId: CommentService_DeleteComment
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      tags:
+        - CommentService
+  /v1/comment/{sectionId}:
+    get:
+      operationId: CommentService_GetComments
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/rpcGetCommentResponse'
+      parameters:
+        - name: sectionId
+          in: path
+          required: true
+          type: string
+      tags:
+        - CommentService
+    post:
+      operationId: CommentService_CreateComment
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+      parameters:
+        - name: sectionId
+          in: path
+          required: true
+          type: string
+        - name: content
+          in: query
+          required: false
+          type: string
+      tags:
+        - CommentService
+  /v1/invite:
+    post:
+      operationId: InviteService_CreateInvite
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/rpcCreateInviteRequest'
+      tags:
+        - InviteService
+  /v1/invite/owner_transfer:
+    post:
+      operationId: InviteService_OwnerTransfer
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/rpcOwnerTransferRequest'
+      tags:
+        - InviteService
+  /v1/invite/{tutorialId}:
+    delete:
+      operationId: InviteService_DeleteInvite
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+      parameters:
+        - name: tutorialId
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              userId:
+                type: string
+      tags:
+        - InviteService
+  /v1/like/{tutorialId}:
+    delete:
+      operationId: LikeService_DeleteLike
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+      parameters:
+        - name: tutorialId
+          in: path
+          required: true
+          type: string
+      tags:
+        - LikeService
+    post:
+      operationId: LikeService_CreateLike
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+      parameters:
+        - name: tutorialId
+          in: path
+          required: true
+          type: string
+      tags:
+        - LikeService
+  /v1/ranking:
+    post:
+      operationId: RankingService_GetRanking
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/rpcGetRankingResponse'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties: {}
+      tags:
+        - RankingService
+  /v1/section/{id}:
+    get:
+      operationId: SectionService_GetSectionDetail
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/rpcGetSectionDetailResponse'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      tags:
+        - SectionService
+    delete:
+      operationId: SectionService_DeleteSectionRequest
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      tags:
+        - SectionService
+    put:
+      operationId: SectionService_UpdateSectionRequest
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+      tags:
+        - SectionService
+  /v1/tutorial:
+    get:
+      operationId: TutorialService_GetTutorialList
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/rpcGetTutorialListResponse'
+      parameters:
+        - name: userId
+          in: query
+          required: false
+          type: string
+        - name: type
+          in: query
+          required: false
+          type: string
+          enum:
+            - CREATE
+            - COMPLETE
+            - LIKE
+          default: CREATE
+        - name: limit
+          in: query
+          required: false
+          type: integer
+          format: int32
+        - name: page
+          in: query
+          required: false
+          type: integer
+          format: int32
+        - name: orderBy
+          in: query
+          required: false
+          type: string
+        - name: isAsc
+          in: query
+          required: false
+          type: boolean
+        - name: status
+          in: query
+          required: false
+          type: string
+          enum:
+            - DRAFT
+            - PUBLISHED
+          default: DRAFT
+      tags:
+        - TutorialService
+    post:
+      operationId: TutorialService_CreateTutorial
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/rpcCreateTutorialRequest'
+      tags:
+        - TutorialService
+  /v1/tutorials/{id}:
+    get:
+      operationId: TutorialService_GetTutorialDetail
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/rpcGetTutorialDetailResponse'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      tags:
+        - TutorialService
+    put:
+      operationId: TutorialService_UpdateTutorial
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              thumbnailUrl:
+                type: string
+              description:
+                type: string
+              score:
+                type: integer
+                format: int64
+      tags:
+        - TutorialService
+  /v1/tutorials/{id}/progress:
+    put:
+      operationId: TutorialService_UpdateUserProgress
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              progress:
+                type: integer
+                format: int32
+      tags:
+        - TutorialService
+  /v1/tutorials/{id}/sections:
+    get:
+      operationId: TutorialService_GetTutorialSections
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/rpcGetTutorialSectionsResponse'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      tags:
+        - TutorialService
+  /v1/user:
+    put:
+      operationId: AccountService_UpdateAccount
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/rpcUpdateUserRequest'
+      tags:
+        - AccountService
+  /v1/user/{id}:
+    get:
+      operationId: AccountService_GetAccountDetail
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/rpcGetUserDetailResponse'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      tags:
+        - AccountService
+definitions:
+  resourcesAuthor:
+    type: object
+    properties:
+      id:
+        type: string
+      username:
+        type: string
+      iconUrl:
+        type: string
+  resourcesComment:
+    type: object
+    properties:
+      userId:
+        type: string
+      description:
+        type: string
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+  resourcesSection:
+    type: object
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+  rpcCreateInviteRequest:
+    type: object
+    properties:
+      tutorialId:
+        type: string
+      userId:
+        type: string
+  rpcCreateTutorialRequest:
+    type: object
+    properties:
+      title:
+        type: string
+      thumbnailUrl:
+        type: string
+      description:
+        type: string
+      score:
+        type: integer
+        format: int64
+  rpcGetCommentResponse:
+    type: object
+    properties:
+      comments:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/resourcesComment'
+  rpcGetRankingResponse:
+    type: object
+    properties:
+      users:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/schemarankingresourcesUser'
+  rpcGetSectionDetailResponse:
+    type: object
+    properties:
+      section:
+        $ref: '#/definitions/resourcesSection'
+  rpcGetTutorialDetailResponse:
+    type: object
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      thumbnailUrl:
+        type: string
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+      completedAt:
+        type: string
+        format: date-time
+      description:
+        type: string
+      score:
+        type: integer
+        format: int64
+      owner:
+        $ref: '#/definitions/resourcesAuthor'
+      progress:
+        type: integer
+        format: int32
+      sectionTotal:
+        type: integer
+        format: int32
+      isLiked:
+        type: boolean
+      authors:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/resourcesAuthor'
+  rpcGetTutorialListResponse:
+    type: object
+    properties:
+      tutorials:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/rpcGetTutorialDetailResponse'
+  rpcGetTutorialSectionsResponse:
+    type: object
+    properties:
+      sections:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/resourcesSection'
+  rpcGetUserDetailResponse:
+    type: object
+    properties:
+      id:
+        type: string
+      username:
+        type: string
+      description:
+        type: string
+      iconUrl:
+        type: string
+      createdAt:
+        type: string
+        format: date-time
+      completedTutorials:
+        type: integer
+        format: int32
+      createdTutorials:
+        type: integer
+        format: int32
+      score:
+        type: integer
+        format: int32
+  rpcOwnerTransferRequest:
+    type: object
+    properties:
+      tutorialId:
+        type: string
+      userId:
+        type: string
+  rpcTutorialStatus:
+    type: string
+    enum:
+      - DRAFT
+      - PUBLISHED
+    default: DRAFT
+  rpcTutorialType:
+    type: string
+    enum:
+      - CREATE
+      - COMPLETE
+      - LIKE
+    default: CREATE
+  rpcUpdateUserRequest:
+    type: object
+    properties:
+      username:
+        type: string
+      description:
+        type: string
+      iconUrl:
+        type: string
+  schemarankingresourcesUser:
+    type: object
+    properties:
+      id:
+        type: string
+      iconUrl:
+        type: string
+      username:
+        type: string
+      score:
+        type: string
