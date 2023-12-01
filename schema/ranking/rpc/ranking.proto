@@ -1,12 +1,29 @@
 syntax = "proto3";
 
 package schema.ranking.rpc;
-import "schema/ranking/resources/ranking.proto";
 import "schema/third_party/google/api/field_behavior.proto";
+import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "./";
+message RankingUser {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{ \"id\": \"1\", \"iconUrl\": "
+              "\"/mock/C3.png\", \"username\": \"example\", "
+              "\"score\": \"100\" }"
+  };
+
+  string id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string iconUrl = 2 [ (google.api.field_behavior) = REQUIRED ];
+  string username = 3 [ (google.api.field_behavior) = REQUIRED ];
+  int64 score = 4 [ (google.api.field_behavior) = REQUIRED ];
+}
 
 message GetRankingResponse {
-  repeated schema.ranking.resources.User users = 1
-      [ (google.api.field_behavior) = REQUIRED ];
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{ \"users\": [ { \"id\": \"1\", \"iconUrl\": "
+              "\"/mock/C3.png\", \"username\": \"example\", "
+              "\"score\": \"100\" } ] }"
+  };
+
+  repeated RankingUser users = 1 [ (google.api.field_behavior) = REQUIRED ];
 }

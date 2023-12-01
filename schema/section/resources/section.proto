@@ -1,11 +1,18 @@
 syntax = "proto3";
 
 package schema.section.resources;
+import "schema/third_party/google/api/field_behavior.proto";
+import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "./";
 
 message Section {
-  string id = 1;
-  string title = 2;
-  string description = 3;
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{ \"id\": \"1\", \"title\": \"Section 1\", \"description\": "
+              "\"Section 1 description\"}"
+  };
+
+  string id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string title = 2 [ (google.api.field_behavior) = REQUIRED ];
+  string description = 3 [ (google.api.field_behavior) = REQUIRED ];
 }

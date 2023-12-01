@@ -1,12 +1,19 @@
 syntax = "proto3";
 
 package schema.comment.resources;
+import "schema/third_party/google/api/field_behavior.proto";
+import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "./";
 
 message Comment {
-  string user_id = 1;
-  string description = 2;
-  string created_at = 3;
-  string updated_at = 4;
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{ \"user_id\": \"1\", \"description\": \"This is a comment\", "
+              "\"createdAt\": \"2021-01-01T00:00:00Z\", \"updated_at\": "
+              "\"2021-01-01T00:00:00Z\" }"
+  };
+  string user_id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string description = 2 [ (google.api.field_behavior) = REQUIRED ];
+  string created_at = 3 [ (google.api.field_behavior) = REQUIRED ];
+  string updated_at = 4 [ (google.api.field_behavior) = REQUIRED ];
 }

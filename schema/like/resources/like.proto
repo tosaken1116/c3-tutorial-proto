@@ -1,10 +1,16 @@
 syntax = "proto3";
 
 package schema.like.resources;
+import "schema/third_party/google/api/field_behavior.proto";
+import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "./";
 
 message Like {
-  string user_id = 1;
-  string tutorial_id = 2;
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{ \"user_id\": \"1\", \"tutorial_id\": \"1\" }"
+  };
+
+  string user_id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string tutorial_id = 2 [ (google.api.field_behavior) = REQUIRED ];
 }

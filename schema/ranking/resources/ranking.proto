@@ -1,12 +1,20 @@
 syntax = "proto3";
 
 package schema.ranking.resources;
+import "schema/third_party/google/api/field_behavior.proto";
+import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "./";
 
 message User {
-  string id = 1;
-  string icon_url = 2;
-  string username = 3;
-  string score = 4;
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{ \"id\": \"1\", \"iconUrl\": "
+              "\"/mock/C3.png\", \"username\": \"example\", "
+              "\"score\": \"100\" }"
+  };
+
+  string id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string iconUrl = 2 [ (google.api.field_behavior) = REQUIRED ];
+  string username = 3 [ (google.api.field_behavior) = REQUIRED ];
+  int64 score = 4 [ (google.api.field_behavior) = REQUIRED ];
 }

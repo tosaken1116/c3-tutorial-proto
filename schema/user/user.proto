@@ -9,6 +9,12 @@ import "schema/user/rpc/user.proto";
 import "schema/third_party/google/api/annotations.proto";
 
 service AccountService {
+  rpc GetMeDetail(schema.user.rpc.GetUserDetailRequest)
+      returns (schema.user.rpc.GetUserDetailResponse) {
+    option (google.api.http) = {
+      get : "/v1/user/me"
+    };
+  };
   rpc GetAccountDetail(schema.user.rpc.GetUserDetailRequest)
       returns (schema.user.rpc.GetUserDetailResponse) {
     option (google.api.http) = {

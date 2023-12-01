@@ -4,27 +4,57 @@ package schema.section.rpc;
 
 import "schema/section/resources/section.proto";
 import "schema/third_party/google/api/field_behavior.proto";
+import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "./";
 
-message GetSectionDetailRequest { string id = 1; }
+message GetSectionDetailRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{ \"id\": \"1\" }"
+  };
 
-message GetSectionDetailResponse {
-  schema.section.resources.Section section = 1
-      [ (google.api.field_behavior) = REQUIRED ];
+  string id = 1;
 }
 
-message GetTutorialSectionsRequest { string id = 1; }
+message GetSectionDetailResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{ \"id\": \"1\", \"title\": \"Section 1\", \"description\": "
+              "\"Section 1 description\" }"
+  };
+  string id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string title = 2 [ (google.api.field_behavior) = REQUIRED ];
+  string description = 3 [ (google.api.field_behavior) = REQUIRED ];
+}
+
+message GetTutorialSectionsRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{ \"id\": \"1\" }"
+  };
+  string id = 1;
+}
 
 message GetTutorialSectionsResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{ \"sections\": [ { \"id\": \"1\", \"title\": \"Section 1\", "
+              "\"description\": \"Section 1 description\" } ] }"
+  };
   repeated schema.section.resources.Section sections = 1
       [ (google.api.field_behavior) = REQUIRED ];
 }
 
 message UpdateSectionRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{ \"id\": \"1\", \"title\": \"Section 1\", \"description\": "
+              "\"Section 1 description\" }"
+  };
   string id = 1;
   string title = 2;
   string description = 3;
 }
 
-message DeleteSectionRequest { string id = 1; }
+message DeleteSectionRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{ \"id\": \"1\" }"
+  };
+  string id = 1;
+}

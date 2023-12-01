@@ -3,15 +3,26 @@ syntax = "proto3";
 package schema.tutorial.resources;
 
 import "google/protobuf/timestamp.proto";
+import "schema/third_party/google/api/field_behavior.proto";
+import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "./";
 
 message Tutorial {
-  string id = 1;
-  string title = 2;
-  string thumbnail_url = 3;
-  google.protobuf.Timestamp created_at = 4;
-  google.protobuf.Timestamp updated_at = 5;
-  string description = 6;
-  uint32 score = 7;
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{ \"id\": \"1\", \"title\": \"Tutorial 1\", \"thumbnailUrl\": "
+              "\"/mock/thumbnail.png\", \"createdAt\": "
+              "\"2020-01-01T00:00:00Z\", \"updatedAt\": "
+              "\"2020-01-01T00:00:00Z\", \"description\": \"This is a "
+              "tutorial\", \"score\": 100}"
+  };
+  string id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string title = 2 [ (google.api.field_behavior) = REQUIRED ];
+  string thumbnailUrl = 3 [ (google.api.field_behavior) = REQUIRED ];
+  google.protobuf.Timestamp created_at = 4
+      [ (google.api.field_behavior) = REQUIRED ];
+  google.protobuf.Timestamp updated_at = 5
+      [ (google.api.field_behavior) = REQUIRED ];
+  string description = 6 [ (google.api.field_behavior) = REQUIRED ];
+  uint32 score = 7 [ (google.api.field_behavior) = REQUIRED ];
 };

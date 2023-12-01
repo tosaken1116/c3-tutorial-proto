@@ -1,9 +1,21 @@
 syntax = "proto3";
 
 package schema.like.rpc;
+import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "./";
 
-message CreateLikeRequest { string tutorial_id = 1; }
+message CreateLikeRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"tutorial_id\":\"1\"}"
+  };
 
-message DeleteLikeRequest { string tutorial_id = 1; }
+  string tutorial_id = 1;
+}
+
+message DeleteLikeRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"tutorial_id\":\"1\"}"
+  };
+  string tutorial_id = 1;
+}

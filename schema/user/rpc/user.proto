@@ -4,25 +4,37 @@ package schema.user.rpc;
 
 import "google/protobuf/timestamp.proto";
 import "schema/third_party/google/api/field_behavior.proto";
+import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "./";
 
 message GetUserDetailRequest { string id = 1; }
 
 message GetUserDetailResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"id\":\"test\",\"username\":\"test\",\"description\":\"test\","
+              "\"iconUrl\":\"/mock/C3.png\",\"createdAt\":\"2020-01-"
+              "01T00:00:00Z\",\"completedTutorials\":0,\"createdTutorials\":"
+              "0,\"score\":0}"
+  };
+
   string id = 1 [ (google.api.field_behavior) = REQUIRED ];
   string username = 2 [ (google.api.field_behavior) = REQUIRED ];
   string description = 3 [ (google.api.field_behavior) = REQUIRED ];
-  string icon_url = 4 [ (google.api.field_behavior) = REQUIRED ];
+  string iconUrl = 4 [ (google.api.field_behavior) = REQUIRED ];
   google.protobuf.Timestamp created_at = 5
       [ (google.api.field_behavior) = REQUIRED ];
-  int32 completed_tutorials = 6 [ (google.api.field_behavior) = REQUIRED ];
-  int32 created_tutorials = 7 [ (google.api.field_behavior) = REQUIRED ];
+  int32 completedTutorials = 6 [ (google.api.field_behavior) = REQUIRED ];
+  int32 createdTutorials = 7 [ (google.api.field_behavior) = REQUIRED ];
   int32 score = 8 [ (google.api.field_behavior) = REQUIRED ];
 }
 
 message UpdateUserRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"username\":\"test\",\"description\":\"test\",\"iconUrl\":"
+              "\"/mock/C3.png\"}"
+  };
   string username = 1;
   string description = 2;
-  string icon_url = 3;
+  string iconUrl = 3;
 }

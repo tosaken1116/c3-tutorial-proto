@@ -5,6 +5,7 @@ package schema.tutorial.rpc;
 import "schema/user/resources/user.proto";
 import "google/protobuf/timestamp.proto";
 import "schema/third_party/google/api/field_behavior.proto";
+import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "./";
 
@@ -17,60 +18,114 @@ enum TutorialStatus {
   DRAFT = 0;
   PUBLISHED = 1;
 }
-message GetTutorialDetailRequest { string id = 1; }
+message GetTutorialDetailRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"id\": \"1\"}"
+  };
+
+  string id = 1;
+}
 
 message GetTutorialDetailResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"id\": \"1\", \"title\": \"title\", \"thumbnailUrl\": "
+              "\"/mock/C3.png\", \"createdAt\": "
+              "\"2020-01-01T00:00:00Z\", \"updatedAt\": "
+              "\"2020-01-01T00:00:00Z\", \"completedAt\": "
+              "\"2020-01-01T00:00:00Z\", \"description\": \"description\", "
+              "\"score\": 100, \"owner\": {\"id\": \"1\", \"username\": "
+              "\"name\", "
+              "\"iconUrl\": "
+              "\"/mock/C3.png\"}, \"progress\": 1, "
+              "\"sectionTotal\": 10, \"isLiked\": true, \"authors\": "
+              "[{\"id\": \"1\", \"username\": \"name\", \"iconUrl\": "
+              "\"/mock/C3.png\"}]}"
+  };
   string id = 1 [ (google.api.field_behavior) = REQUIRED ];
   string title = 2 [ (google.api.field_behavior) = REQUIRED ];
-  string thumbnail_url = 3 [ (google.api.field_behavior) = REQUIRED ];
-  optional google.protobuf.Timestamp created_at = 4
+  string thumbnailUrl = 3 [ (google.api.field_behavior) = REQUIRED ];
+  optional google.protobuf.Timestamp createdAt = 4
       [ (google.api.field_behavior) = REQUIRED ];
-  optional google.protobuf.Timestamp updated_at = 5
+  optional google.protobuf.Timestamp updatedAt = 5
       [ (google.api.field_behavior) = REQUIRED ];
-  optional google.protobuf.Timestamp completed_at = 6
+  optional google.protobuf.Timestamp completedAt = 6
       [ (google.api.field_behavior) = REQUIRED ];
   string description = 7 [ (google.api.field_behavior) = REQUIRED ];
   uint32 score = 8 [ (google.api.field_behavior) = REQUIRED ];
   schema.user.resources.Author owner = 9
       [ (google.api.field_behavior) = REQUIRED ];
   int32 progress = 10 [ (google.api.field_behavior) = REQUIRED ];
-  int32 section_total = 11 [ (google.api.field_behavior) = REQUIRED ];
-  bool is_liked = 12 [ (google.api.field_behavior) = REQUIRED ];
+  int32 sectionTotal = 11 [ (google.api.field_behavior) = REQUIRED ];
+  bool isLiked = 12 [ (google.api.field_behavior) = REQUIRED ];
   repeated schema.user.resources.Author authors = 13
       [ (google.api.field_behavior) = REQUIRED ];
 }
 
 message GetTutorialListRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"user_id\": \"1\", \"type\": \"CREATE\", \"limit\": 10, "
+              "\"page\": 1, \"orderBy\": \"createdAt\", \"isAsc\": true, "
+              "\"status\": \"PUBLISHED\"}"
+  };
   string user_id = 1;
   optional TutorialType type = 2;
   optional int32 limit = 3;
   optional int32 page = 4;
-  optional string order_by = 5;
-  optional bool is_asc = 6;
+  optional string orderBy = 5;
+  optional bool isAsc = 6;
   optional TutorialStatus status = 7;
 }
 
 message GetTutorialListResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"tutorials\": [{\"id\": \"1\", \"title\": \"title\", "
+              "\"thumbnailUrl\": "
+              "\"/mock/C3.png\",\"createdAt\": "
+              "\"2020-01-01T00:00:00Z\", \"updatedAt\": "
+              "\"2020-01-01T00:00:00Z\", \"completedAt\": "
+              "\"2020-01-01T00:00:00Z\", \"description\": \"description\", "
+              "\"score\": 100, \"owner\": {\"id\": \"1\", \"username\": "
+              "\"name\", "
+              "\"iconUrl\": "
+              "\"/mock/C3.png"
+              "\"}, \"progress\": 1, "
+              "\"sectionTotal\": 10, \"isLiked\": true, \"authors\": "
+              "[{\"id\": \"1\", \"username\": \"name\", \"iconUrl\": "
+              "\"/mock/C3.png\"}]}], \"total\": 1}"
+  };
   repeated GetTutorialDetailResponse tutorials = 1
       [ (google.api.field_behavior) = REQUIRED ];
 }
 
 message UpdateTutorialRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"id\": \"1\", \"title\": \"title\", \"thumbnailUrl\": "
+              "\"/mock/C3.png\", \"description\": "
+              "\"description\", \"score\": 100}"
+  };
   string id = 1;
   string title = 2;
-  string thumbnail_url = 3;
+  string thumbnailUrl = 3;
   string description = 4;
   uint32 score = 5;
 }
 
 message UpdateUserProgressRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"id\": \"1\", \"progress\": 1}"
+  };
   string id = 1;
   int32 progress = 2;
 }
 
 message CreateTutorialRequest {
-  string title = 1;
-  string thumbnail_url = 2;
-  string description = 3;
-  uint32 score = 4;
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"title\": \"title\", \"thumbnailUrl\": "
+              "\"/mock/C3.png\", \"description\": "
+              "\"description\", \"score\": 100}"
+  };
+  string title = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string thumbnailUrl = 2 [ (google.api.field_behavior) = REQUIRED ];
+  string description = 3 [ (google.api.field_behavior) = REQUIRED ];
+  uint32 score = 4 [ (google.api.field_behavior) = REQUIRED ];
 }

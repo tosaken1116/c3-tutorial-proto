@@ -3,24 +3,46 @@ syntax = "proto3";
 package schema.comment.rpc;
 import "schema/comment/resources/comment.proto";
 import "schema/third_party/google/api/field_behavior.proto";
+import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "./";
 
 message CreateCommentRequest {
-  string section_id = 1;
-  string content = 2;
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"section_id\": \"1\", \"content\": \"This is a comment\"}"
+  };
+
+  string section_id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string content = 2 [ (google.api.field_behavior) = REQUIRED ];
 }
 
 message UpdateCommentRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"id\": \"1\", \"content\": \"This is a comment\"}"
+  };
   string id = 1;
   string content = 2;
 }
 
-message DeleteCommentRequest { string id = 1; }
+message DeleteCommentRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"id\": \"1\"}"
+  };
+  string id = 1;
+}
 
-message GetCommentRequest { string section_id = 1; }
+message GetCommentRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"section_id\": \"1\"}"
+  };
+  string section_id = 1;
+}
 
 message GetCommentResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"comments\": [{\"id\": \"1\", \"content\": \"This is a "
+              "comment\"}]}"
+  };
   repeated schema.comment.resources.Comment comments = 1
       [ (google.api.field_behavior) = REQUIRED ];
 }

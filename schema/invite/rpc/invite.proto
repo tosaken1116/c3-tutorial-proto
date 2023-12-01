@@ -1,20 +1,32 @@
 syntax = "proto3";
 
 package schema.invite.rpc;
+import "schema/third_party/google/api/field_behavior.proto";
+import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "./";
 
 message CreateInviteRequest {
-  string tutorial_id = 1;
-  string user_id = 2;
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"tutorial_id\": \"1\", \"user_id\": \"1\"}"
+  };
+
+  string tutorial_id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string user_id = 2 [ (google.api.field_behavior) = REQUIRED ];
 }
 
 message DeleteInviteRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"tutorial_id\": \"1\", \"user_id\": \"1\"}"
+  };
   string tutorial_id = 1;
   string user_id = 2;
 }
 
 message OwnerTransferRequest {
-  string tutorial_id = 1;
-  string user_id = 2;
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"tutorial_id\": \"1\", \"user_id\": \"1\"}"
+  };
+  string tutorial_id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string user_id = 2 [ (google.api.field_behavior) = REQUIRED ];
 }

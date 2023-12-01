@@ -3,21 +3,34 @@ syntax = "proto3";
 package schema.user.resources;
 
 import "google/protobuf/timestamp.proto";
+import "schema/third_party/google/api/field_behavior.proto";
+import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "./";
 
 message User {
-  string id = 1;
-  string username = 2;
-  string description = 3;
-  string icon_url = 4;
-  google.protobuf.Timestamp created_at = 5;
-  int32 completed_tutorials = 6;
-  int32 created_tutorials = 7;
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"id\": \"1\", \"username\": \"test\", \"description\": "
+              "\"test\", \"iconUrl\": \"mock/C3.png\", "
+              "\"createdAt\": \"2020-01-01T00:00:00Z\", "
+              "\"completedTutorials\": 0, \"createdTutorials\": 0}"
+  };
+  string id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string username = 2 [ (google.api.field_behavior) = REQUIRED ];
+  string description = 3 [ (google.api.field_behavior) = REQUIRED ];
+  string iconUrl = 4 [ (google.api.field_behavior) = REQUIRED ];
+  google.protobuf.Timestamp created_at = 5
+      [ (google.api.field_behavior) = REQUIRED ];
+  int32 completed_tutorials = 6 [ (google.api.field_behavior) = REQUIRED ];
+  int32 created_tutorials = 7 [ (google.api.field_behavior) = REQUIRED ];
 };
 
 message Author {
-  string id = 1;
-  string username = 2;
-  string icon_url = 3;
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    example : "{\"id\": \"1\", \"username\": \"test\", \"iconUrl\": "
+              "\"/mock/C3.png\"}"
+  };
+  string id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string username = 2 [ (google.api.field_behavior) = REQUIRED ];
+  string iconUrl = 3 [ (google.api.field_behavior) = REQUIRED ];
 }

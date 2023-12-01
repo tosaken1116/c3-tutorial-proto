@@ -61,7 +61,7 @@ paths:
           type: string
         - name: content
           in: query
-          required: false
+          required: true
           type: string
       tags:
         - CommentService
@@ -118,6 +118,9 @@ paths:
           required: true
           schema:
             type: object
+            example:
+              tutorial_id: "1"
+              user_id: "1"
             properties:
               userId:
                 type: string
@@ -155,20 +158,13 @@ paths:
       tags:
         - LikeService
   /v1/ranking:
-    post:
+    get:
       operationId: RankingService_GetRanking
       responses:
         "200":
           description: A successful response.
           schema:
             $ref: '#/definitions/rpcGetRankingResponse'
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties: {}
       tags:
         - RankingService
   /v1/section/{id}:
@@ -219,6 +215,10 @@ paths:
           required: true
           schema:
             type: object
+            example:
+              description: Section 1 description
+              id: "1"
+              title: Section 1
             properties:
               title:
                 type: string
@@ -325,6 +325,12 @@ paths:
           required: true
           schema:
             type: object
+            example:
+              description: description
+              id: "1"
+              score: 100
+              thumbnailUrl: /mock/C3.png
+              title: title
             properties:
               title:
                 type: string
@@ -356,6 +362,9 @@ paths:
           required: true
           schema:
             type: object
+            example:
+              id: "1"
+              progress: 1
             properties:
               progress:
                 type: integer
@@ -394,6 +403,21 @@ paths:
             $ref: '#/definitions/rpcUpdateUserRequest'
       tags:
         - AccountService
+  /v1/user/me:
+    get:
+      operationId: AccountService_GetMeDetail
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/rpcGetUserDetailResponse'
+      parameters:
+        - name: id
+          in: query
+          required: false
+          type: string
+      tags:
+        - AccountService
   /v1/user/{id}:
     get:
       operationId: AccountService_GetAccountDetail
@@ -412,6 +436,10 @@ paths:
 definitions:
   resourcesAuthor:
     type: object
+    example:
+      iconUrl: /mock/C3.png
+      id: "1"
+      username: test
     properties:
       id:
         type: string
@@ -419,8 +447,17 @@ definitions:
         type: string
       iconUrl:
         type: string
+    required:
+      - id
+      - username
+      - iconUrl
   resourcesComment:
     type: object
+    example:
+      createdAt: "2021-01-01T00:00:00Z"
+      description: This is a comment
+      updated_at: "2021-01-01T00:00:00Z"
+      user_id: "1"
     properties:
       userId:
         type: string
@@ -430,8 +467,17 @@ definitions:
         type: string
       updatedAt:
         type: string
+    required:
+      - userId
+      - description
+      - createdAt
+      - updatedAt
   resourcesSection:
     type: object
+    example:
+      description: Section 1 description
+      id: "1"
+      title: Section 1
     properties:
       id:
         type: string
@@ -439,15 +485,30 @@ definitions:
         type: string
       description:
         type: string
+    required:
+      - id
+      - title
+      - description
   rpcCreateInviteRequest:
     type: object
+    example:
+      tutorial_id: "1"
+      user_id: "1"
     properties:
       tutorialId:
         type: string
       userId:
         type: string
+    required:
+      - tutorialId
+      - userId
   rpcCreateTutorialRequest:
     type: object
+    example:
+      description: description
+      score: 100
+      thumbnailUrl: /mock/C3.png
+      title: title
     properties:
       title:
         type: string
@@ -458,8 +519,17 @@ definitions:
       score:
         type: integer
         format: int64
+    required:
+      - title
+      - thumbnailUrl
+      - description
+      - score
   rpcGetCommentResponse:
     type: object
+    example:
+      comments:
+        - content: This is a comment
+          id: "1"
     properties:
       comments:
         type: array
@@ -470,23 +540,59 @@ definitions:
       - comments
   rpcGetRankingResponse:
     type: object
+    example:
+      users:
+        - iconUrl: /mock/C3.png
+          id: "1"
+          score: "100"
+          username: example
     properties:
       users:
         type: array
         items:
           type: object
-          $ref: '#/definitions/schemarankingresourcesUser'
+          $ref: '#/definitions/rpcRankingUser'
     required:
       - users
   rpcGetSectionDetailResponse:
     type: object
+    example:
+      description: Section 1 description
+      id: "1"
+      title: Section 1
     properties:
-      section:
-        $ref: '#/definitions/resourcesSection'
+      id:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
     required:
-      - section
+      - id
+      - title
+      - description
   rpcGetTutorialDetailResponse:
     type: object
+    example:
+      authors:
+        - iconUrl: /mock/C3.png
+          id: "1"
+          username: name
+      completedAt: "2020-01-01T00:00:00Z"
+      createdAt: "2020-01-01T00:00:00Z"
+      description: description
+      id: "1"
+      isLiked: true
+      owner:
+        iconUrl: /mock/C3.png
+        id: "1"
+        username: name
+      progress: 1
+      score: 100
+      sectionTotal: 10
+      thumbnailUrl: /mock/C3.png
+      title: title
+      updatedAt: "2020-01-01T00:00:00Z"
     properties:
       id:
         type: string
@@ -539,6 +645,28 @@ definitions:
       - authors
   rpcGetTutorialListResponse:
     type: object
+    example:
+      total: 1
+      tutorials:
+        - authors:
+            - iconUrl: /mock/C3.png
+              id: "1"
+              username: name
+          completedAt: "2020-01-01T00:00:00Z"
+          createdAt: "2020-01-01T00:00:00Z"
+          description: description
+          id: "1"
+          isLiked: true
+          owner:
+            iconUrl: /mock/C3.png
+            id: "1"
+            username: name
+          progress: 1
+          score: 100
+          sectionTotal: 10
+          thumbnailUrl: /mock/C3.png
+          title: title
+          updatedAt: "2020-01-01T00:00:00Z"
     properties:
       tutorials:
         type: array
@@ -549,6 +677,11 @@ definitions:
       - tutorials
   rpcGetTutorialSectionsResponse:
     type: object
+    example:
+      sections:
+        - description: Section 1 description
+          id: "1"
+          title: Section 1
     properties:
       sections:
         type: array
@@ -559,6 +692,15 @@ definitions:
       - sections
   rpcGetUserDetailResponse:
     type: object
+    example:
+      completedTutorials: 0
+      createdAt: "2020-01-01T00:00:00Z"
+      createdTutorials: 0
+      description: test
+      iconUrl: /mock/C3.png
+      id: test
+      score: 0
+      username: test
     properties:
       id:
         type: string
@@ -591,11 +733,39 @@ definitions:
       - score
   rpcOwnerTransferRequest:
     type: object
+    example:
+      tutorial_id: "1"
+      user_id: "1"
     properties:
       tutorialId:
         type: string
       userId:
         type: string
+    required:
+      - tutorialId
+      - userId
+  rpcRankingUser:
+    type: object
+    example:
+      iconUrl: /mock/C3.png
+      id: "1"
+      score: "100"
+      username: example
+    properties:
+      id:
+        type: string
+      iconUrl:
+        type: string
+      username:
+        type: string
+      score:
+        type: string
+        format: int64
+    required:
+      - id
+      - iconUrl
+      - username
+      - score
   rpcTutorialStatus:
     type: string
     enum:
@@ -611,21 +781,14 @@ definitions:
     default: CREATE
   rpcUpdateUserRequest:
     type: object
+    example:
+      description: test
+      iconUrl: /mock/C3.png
+      username: test
     properties:
       username:
         type: string
       description:
         type: string
       iconUrl:
-        type: string
-  schemarankingresourcesUser:
-    type: object
-    properties:
-      id:
-        type: string
-      iconUrl:
-        type: string
-      username:
-        type: string
-      score:
         type: string

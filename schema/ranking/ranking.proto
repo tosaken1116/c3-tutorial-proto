@@ -12,8 +12,7 @@ service RankingService {
   rpc GetRanking(google.protobuf.Empty)
       returns (schema.ranking.rpc.GetRankingResponse) {
     option (google.api.http) = {
-      post : "/v1/ranking"
-      body : "*"
+      get : "/v1/ranking"
     };
   };
 }
