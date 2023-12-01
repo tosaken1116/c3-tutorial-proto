@@ -3,19 +3,22 @@ syntax = "proto3";
 package schema.section.rpc;
 
 import "schema/section/resources/section.proto";
+import "schema/third_party/google/api/field_behavior.proto";
 
 option go_package = "./";
 
 message GetSectionDetailRequest { string id = 1; }
 
 message GetSectionDetailResponse {
-  schema.section.resources.Section section = 1;
+  schema.section.resources.Section section = 1
+      [ (google.api.field_behavior) = REQUIRED ];
 }
 
 message GetTutorialSectionsRequest { string id = 1; }
 
 message GetTutorialSectionsResponse {
-  repeated schema.section.resources.Section sections = 1;
+  repeated schema.section.resources.Section sections = 1
+      [ (google.api.field_behavior) = REQUIRED ];
 }
 
 message UpdateSectionRequest {

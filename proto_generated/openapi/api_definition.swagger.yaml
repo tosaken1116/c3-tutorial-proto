@@ -466,6 +466,8 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/resourcesComment'
+    required:
+      - comments
   rpcGetRankingResponse:
     type: object
     properties:
@@ -474,11 +476,15 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/schemarankingresourcesUser'
+    required:
+      - users
   rpcGetSectionDetailResponse:
     type: object
     properties:
       section:
         $ref: '#/definitions/resourcesSection'
+    required:
+      - section
   rpcGetTutorialDetailResponse:
     type: object
     properties:
@@ -517,6 +523,20 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/resourcesAuthor'
+    required:
+      - id
+      - title
+      - thumbnailUrl
+      - createdAt
+      - updatedAt
+      - completedAt
+      - description
+      - score
+      - owner
+      - progress
+      - sectionTotal
+      - isLiked
+      - authors
   rpcGetTutorialListResponse:
     type: object
     properties:
@@ -525,6 +545,8 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/rpcGetTutorialDetailResponse'
+    required:
+      - tutorials
   rpcGetTutorialSectionsResponse:
     type: object
     properties:
@@ -533,6 +555,8 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/resourcesSection'
+    required:
+      - sections
   rpcGetUserDetailResponse:
     type: object
     properties:
@@ -556,6 +580,15 @@ definitions:
       score:
         type: integer
         format: int32
+    required:
+      - id
+      - username
+      - description
+      - iconUrl
+      - createdAt
+      - completedTutorials
+      - createdTutorials
+      - score
   rpcOwnerTransferRequest:
     type: object
     properties:

@@ -4,6 +4,7 @@ package schema.tutorial.rpc;
 
 import "schema/user/resources/user.proto";
 import "google/protobuf/timestamp.proto";
+import "schema/third_party/google/api/field_behavior.proto";
 
 option go_package = "./";
 
@@ -19,19 +20,24 @@ enum TutorialStatus {
 message GetTutorialDetailRequest { string id = 1; }
 
 message GetTutorialDetailResponse {
-  string id = 1;
-  string title = 2;
-  string thumbnail_url = 3;
-  optional google.protobuf.Timestamp created_at = 4;
-  optional google.protobuf.Timestamp updated_at = 5;
-  optional google.protobuf.Timestamp completed_at = 6;
-  string description = 7;
-  uint32 score = 8;
-  schema.user.resources.Author owner = 9;
-  int32 progress = 10;
-  int32 section_total = 11;
-  bool is_liked = 12;
-  repeated schema.user.resources.Author authors = 13;
+  string id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string title = 2 [ (google.api.field_behavior) = REQUIRED ];
+  string thumbnail_url = 3 [ (google.api.field_behavior) = REQUIRED ];
+  optional google.protobuf.Timestamp created_at = 4
+      [ (google.api.field_behavior) = REQUIRED ];
+  optional google.protobuf.Timestamp updated_at = 5
+      [ (google.api.field_behavior) = REQUIRED ];
+  optional google.protobuf.Timestamp completed_at = 6
+      [ (google.api.field_behavior) = REQUIRED ];
+  string description = 7 [ (google.api.field_behavior) = REQUIRED ];
+  uint32 score = 8 [ (google.api.field_behavior) = REQUIRED ];
+  schema.user.resources.Author owner = 9
+      [ (google.api.field_behavior) = REQUIRED ];
+  int32 progress = 10 [ (google.api.field_behavior) = REQUIRED ];
+  int32 section_total = 11 [ (google.api.field_behavior) = REQUIRED ];
+  bool is_liked = 12 [ (google.api.field_behavior) = REQUIRED ];
+  repeated schema.user.resources.Author authors = 13
+      [ (google.api.field_behavior) = REQUIRED ];
 }
 
 message GetTutorialListRequest {
@@ -45,7 +51,8 @@ message GetTutorialListRequest {
 }
 
 message GetTutorialListResponse {
-  repeated GetTutorialDetailResponse tutorials = 1;
+  repeated GetTutorialDetailResponse tutorials = 1
+      [ (google.api.field_behavior) = REQUIRED ];
 }
 
 message UpdateTutorialRequest {

@@ -2,8 +2,11 @@ syntax = "proto3";
 
 package schema.ranking.rpc;
 import "schema/ranking/resources/ranking.proto";
+import "schema/third_party/google/api/field_behavior.proto";
+
 option go_package = "./";
 
 message GetRankingResponse {
-  repeated schema.ranking.resources.User users = 1;
+  repeated schema.ranking.resources.User users = 1
+      [ (google.api.field_behavior) = REQUIRED ];
 }

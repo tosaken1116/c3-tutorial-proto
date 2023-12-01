@@ -3,20 +3,22 @@ syntax = "proto3";
 package schema.user.rpc;
 
 import "google/protobuf/timestamp.proto";
+import "schema/third_party/google/api/field_behavior.proto";
 
 option go_package = "./";
 
 message GetUserDetailRequest { string id = 1; }
 
 message GetUserDetailResponse {
-  string id = 1;
-  string username = 2;
-  string description = 3;
-  string icon_url = 4;
-  google.protobuf.Timestamp created_at = 5;
-  int32 completed_tutorials = 6;
-  int32 created_tutorials = 7;
-  int32 score = 8;
+  string id = 1 [ (google.api.field_behavior) = REQUIRED ];
+  string username = 2 [ (google.api.field_behavior) = REQUIRED ];
+  string description = 3 [ (google.api.field_behavior) = REQUIRED ];
+  string icon_url = 4 [ (google.api.field_behavior) = REQUIRED ];
+  google.protobuf.Timestamp created_at = 5
+      [ (google.api.field_behavior) = REQUIRED ];
+  int32 completed_tutorials = 6 [ (google.api.field_behavior) = REQUIRED ];
+  int32 created_tutorials = 7 [ (google.api.field_behavior) = REQUIRED ];
+  int32 score = 8 [ (google.api.field_behavior) = REQUIRED ];
 }
 
 message UpdateUserRequest {
