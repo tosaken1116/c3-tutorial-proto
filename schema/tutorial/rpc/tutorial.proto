@@ -10,13 +10,13 @@ import "schema/third_party/protoc-gen-openapiv2/options/annotations.proto";
 option go_package = "./";
 
 enum TutorialType {
-  CREATE = 0;
-  COMPLETE = 1;
-  LIKE = 2;
+  create = 0;
+  complete = 1;
+  like = 2;
 }
 enum TutorialStatus {
-  DRAFT = 0;
-  PUBLISHED = 1;
+  draft = 0;
+  published = 1;
 }
 message GetTutorialDetailRequest {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {

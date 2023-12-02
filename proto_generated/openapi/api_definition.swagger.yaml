@@ -244,10 +244,10 @@ paths:
           required: false
           type: string
           enum:
-            - CREATE
-            - COMPLETE
-            - LIKE
-          default: CREATE
+            - create
+            - complete
+            - like
+          default: create
         - name: limit
           in: query
           required: false
@@ -271,9 +271,9 @@ paths:
           required: false
           type: string
           enum:
-            - DRAFT
-            - PUBLISHED
-          default: DRAFT
+            - draft
+            - published
+          default: draft
       tags:
         - TutorialService
     post:
@@ -769,16 +769,16 @@ definitions:
   rpcTutorialStatus:
     type: string
     enum:
-      - DRAFT
-      - PUBLISHED
-    default: DRAFT
+      - draft
+      - published
+    default: draft
   rpcTutorialType:
     type: string
     enum:
-      - CREATE
-      - COMPLETE
-      - LIKE
-    default: CREATE
+      - create
+      - complete
+      - like
+    default: create
   rpcUpdateUserRequest:
     type: object
     example:
